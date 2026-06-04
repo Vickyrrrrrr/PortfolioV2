@@ -1,12 +1,18 @@
 const skills = [
-  "TypeScript",
-  "React / Next.js",
+  "Agentic AI",
+  "Python",
+  "C++",
+  "C",
+  "JavaScript",
+  "React",
   "Node.js",
-  "Go",
-  "PostgreSQL",
-  "Redis",
-  "AWS",
-  "Docker",
+  "Tailwind",
+  "Git",
+  "HTML",
+  "CSS",
+  "System Design",
+  "Verilog",
+  "MATLAB",
 ]
 
 export function AboutSection() {
@@ -19,15 +25,16 @@ export function AboutSection() {
       <div className="mt-8 grid gap-10 sm:grid-cols-5">
         <div className="space-y-4 sm:col-span-3">
           <p className="text-pretty leading-relaxed text-foreground">
-            I&apos;ve spent the last six years building products across the
-            stack — from low-level systems work to polished user interfaces. I
-            care deeply about the craft: readable code, sensible abstractions,
-            and software that feels fast.
+            I&apos;m Vicky Nishad, an Electronics and Communication Engineering
+            student and a deeply passionate AI Systems Architect. My work is
+            driven by a fascination with Large Language Models (LLMs) and the
+            transformative power of Autonomous Agents.
           </p>
           <p className="text-pretty leading-relaxed text-muted-foreground">
-            Outside of work you&apos;ll find me contributing to open source,
-            writing about engineering, and chasing good coffee. I believe the
-            best tools get out of your way.
+            I specialize in designing and implementing Agentic Workflows that
+            bridge the gap between static code and dynamic, self-evolving
+            systems. Beyond engineering, I&apos;m into video editing and music
+            production.
           </p>
         </div>
 

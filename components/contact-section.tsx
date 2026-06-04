@@ -1,8 +1,4 @@
-const socials = [
-  { label: "GitHub", href: "https://github.com" },
-  { label: "LinkedIn", href: "https://linkedin.com" },
-  { label: "X / Twitter", href: "https://x.com" },
-]
+const socials = [{ label: "Twitter / X", href: "https://x.com" }]
 
 export function ContactSection() {
   return (
@@ -15,19 +11,13 @@ export function ContactSection() {
       </h2>
 
       <h3 className="mt-6 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-        Let&apos;s build something together.
+        Let&apos;s Connect.
       </h3>
       <p className="mt-4 max-w-lg text-pretty leading-relaxed text-muted-foreground">
-        I&apos;m open to new opportunities and interesting collaborations. The
-        fastest way to reach me is by email.
+        I&apos;m open to new opportunities and interesting collaborations on AI
+        systems and agentic workflows. The fastest way to reach me is on
+        Twitter / X.
       </p>
-
-      <a
-        href="mailto:hello@alexrivera.dev"
-        className="mt-6 inline-block font-mono text-lg text-foreground underline underline-offset-4 transition-opacity hover:opacity-70"
-      >
-        hello@alexrivera.dev
-      </a>
 
       <ul className="mt-8 flex flex-wrap gap-6">
         {socials.map((social) => (

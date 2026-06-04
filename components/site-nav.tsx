@@ -20,7 +20,7 @@ export function SiteNav() {
           href="#top"
           className="font-mono text-sm font-medium tracking-tight text-foreground"
         >
-          alex<span className="text-muted-foreground">.dev</span>
+          vicky<span className="text-muted-foreground">.dev</span>
         </a>
 
         <ul className="hidden items-center gap-8 sm:flex">

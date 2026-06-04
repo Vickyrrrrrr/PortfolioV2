@@ -1,24 +1,17 @@
 const roles = [
   {
-    company: "Vercel",
-    title: "Senior Software Engineer",
+    company: "Independent Research & Development",
+    title: "Tech Enthusiast & Self-Taught Developer",
     period: "2023 — Present",
     description:
-      "Lead engineer on developer tooling. Shipped performance improvements that cut build times by 40%.",
+      "Architecting and building autonomous multi-agent systems for hardware engineering (AgentIC). Conducting deep research into LLM architectures and prompt engineering for robust, self-correcting logic generation, and sharing AI insights through technical workshops and communities.",
   },
   {
-    company: "Linear",
-    title: "Software Engineer",
-    period: "2021 — 2023",
+    company: "University of Lucknow",
+    title: "Electronics & Communication Student",
+    period: "2024 — Present",
     description:
-      "Built core sync infrastructure and real-time collaboration features used by thousands of teams.",
-  },
-  {
-    company: "Stripe",
-    title: "Software Engineer",
-    period: "2019 — 2021",
-    description:
-      "Worked on payments APIs and internal platform tooling, focusing on reliability and developer experience.",
+      "Pursuing a B.Tech in Electronics and Communication Engineering. Building foundational skills in digital circuit design and hardware description, and exploring VLSI design principles to contribute high-impact solutions in the field.",
   },
 ]
 

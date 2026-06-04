@@ -19,7 +19,7 @@ export default function Page() {
       <footer className="border-t border-border/60">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-8">
           <p className="font-mono text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Alex Rivera
+            © {new Date().getFullYear()} Vicky Nishad
           </p>
           <a
             href="#top"
