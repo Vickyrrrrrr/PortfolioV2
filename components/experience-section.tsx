@@ -9,7 +9,7 @@ const roles = [
   {
     company: "University of Lucknow",
     title: "Electronics & Communication Student",
-    period: "2024 — Present",
+    period: "2025 — Present",
     description:
       "Pursuing a B.Tech in Electronics and Communication Engineering. Building foundational skills in digital circuit design and hardware description, and exploring VLSI design principles to contribute high-impact solutions in the field.",
   },
