@@ -11,9 +11,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Vicky Nishad — Software Engineer & AI Systems Architect',
+  title: 'Vicky Nishad — AI Systems Architect',
   description:
-    'Portfolio of Vicky Nishad, a software engineer and AI Systems Architect building agentic workflows and full stack applications.',
+    'Portfolio of Vicky Nishad, an AI Systems Architect building agentic workflows, LLM-powered hardware design, and open source tooling.',
   generator: 'v0.app',
   icons: {
     icon: [
