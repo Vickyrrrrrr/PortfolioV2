@@ -1,0 +1,77 @@
+---
+title: "ClearNet: Removing Clouds from Satellite Imagery with Diffusion"
+date: "2026-06-30"
+description: "A SAR-conditioned latent diffusion bridge built for ISRO's Bharatiya Antariksh Hackathon 2026 — reconstructing cloud-obscured LISS-4 imagery for crop monitoring when the monsoon blocks 60% of acquisitions."
+tags: ["Machine Learning", "Diffusion", "Remote Sensing", "Hackathon"]
+---
+
+During the Indian monsoon, cloud cover renders up to 60% of LISS-4 satellite
+acquisitions unusable — right when agricultural surveillance matters most.
+ClearNet is the system our team (CloudXRecon) built for the **Bharatiya
+Antariksh Hackathon 2026** to reconstruct those obscured regions.
+
+## The Problem
+
+LISS-4, aboard ISRO's Resourcesat-2, is the highest-resolution optical sensor
+in the Indian remote sensing fleet at 5.8 m ground sampling distance. It
+feeds crop area estimation under PMFBY, flood mapping, and land records. But
+as an optical sensor, it is blind whenever clouds roll in — and the monsoon
+persists for 15-20 consecutive days, well beyond the 5-day revisit cycle.
+
+Existing cloud removal methods target Sentinel-2's 10 m, 13-band format.
+None work natively with LISS-4's 3-band, 5.8 m GeoTIFF, and none enforce
+NDVI fidelity — the metric that actually matters for crop monitoring.
+
+## The Approach
+
+We built a **SAR-conditioned latent diffusion bridge**. The core idea:
+
+1. **Cloud mask** via Otsu-thresholded NSCI, splitting thin and thick cloud.
+2. **SAR fusion** — co-register Sentinel-1 radar (cloud-penetrating) to
+   LISS-4 geometry, fuse via multi-head cross-attention.
+3. **Diffusion bridge** — instead of starting from Gaussian noise, the
+   model transports directly from the cloudy distribution to the clear
+   distribution. Cloud-free pixels are preserved exactly; only masked
+   regions are reconstructed.
+4. **NDVI preservation loss** — a spectral term that keeps the
+   reconstructed NIR/Red ratio consistent with ground truth, so the output
+   stays useful for agriculture.
+
+## Why a Bridge, Not a GAN
+
+Conditional GANs collapse on thick-cloud scenes (above 40% coverage). The
+discriminator cannot tell hallucinated NIR reflectance from real
+reflectance, so it produces spectrally invalid fills. The diffusion bridge
+formulation sidesteps this by modelling the stochastic transport between
+distributions directly — no adversarial game, no mode collapse.
+
+## Domain Adaptation
+
+The base model pre-trains on SEN12MS-CR (180,662 Sentinel-1/2 scene pairs).
+To adapt to LISS-4, we inject **LoRA rank-8 adapters** into the
+cross-attention layers only — cutting trainable parameters from ~85M to 1.2M.
+This lets us fine-tune on 200-500 LISS-4 pairs from Bhoonidhi without
+overfitting, inside the hackathon's compute window on a single A100.
+
+## Results
+
+Under the 10-minute demo baseline (64 channels, 1.2M params, 10 epochs):
+
+- **PSNR**: 19.59 dB (target: >31 dB at full scale)
+- **SSIM**: 0.584 (target: >0.910)
+- **NDVI correlation**: 0.402 (target: >0.95)
+
+The full-scale configuration is projected to hit >31 dB PSNR — competitive
+with the published state of the art on SEN12MS-CR, while being the first
+method natively designed for LISS-4 and Bhuvan workflows.
+
+## What I Worked On
+
+My role was **systems and deployment** — pipeline orchestration, inference
+optimisation, the demo interface, and submission packaging. The ML
+architecture was led by Kavish Tiwari, remote sensing and data by Ritesh
+Singh, and evaluation by Harshit Singh.
+
+The full proposal with the architecture diagrams, equations, and
+quantitative comparison tables is at
+[vxky.me/bah2026-proposal](https://vxky.me/bah2026-proposal/).

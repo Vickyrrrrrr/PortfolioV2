@@ -1,58 +1,55 @@
-const skills = [
-  "Agentic AI",
+import { Reveal } from "@/components/reveal"
+import { SectionHeading } from "@/components/section-heading"
+
+const stack = [
   "Python",
   "C++",
-  "C",
+  "Verilog",
   "JavaScript",
   "React",
   "Node.js",
   "Tailwind",
+  "Docker",
   "Git",
-  "HTML",
-  "CSS",
-  "System Design",
-  "Verilog",
-  "MATLAB",
+  "Linux",
 ]
 
 export function AboutSection() {
   return (
-    <section id="about" className="border-t border-border/60 py-16 sm:py-20">
-      <h2 className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
-        About
-      </h2>
+    <section id="about" className="py-16 sm:py-20">
+      <SectionHeading index="03" title="About" />
 
       <div className="mt-8 grid gap-10 sm:grid-cols-5">
-        <div className="space-y-4 sm:col-span-3">
+        <Reveal className="space-y-4 sm:col-span-3">
           <p className="text-pretty leading-relaxed text-foreground">
-            I&apos;m Vicky Nishad, an Electronics and Communication Engineering
-            student and a deeply passionate AI Systems Architect. My work is
-            driven by a fascination with Large Language Models (LLMs) and the
-            transformative power of Autonomous Agents.
+            I am Vicky Nishad, an Electronics &amp; Communication Engineering
+            student at the University of Lucknow. I build agentic systems that
+            sit at the intersection of LLMs and hardware — the kind of
+            workflows where a prompt becomes verified RTL, not just text.
           </p>
           <p className="text-pretty leading-relaxed text-muted-foreground">
-            I specialize in designing and implementing Agentic Workflows that
-            bridge the gap between static code and dynamic, self-evolving
-            systems. Beyond engineering, I&apos;m into video editing and music
-            production.
+            Most of my time goes into open source and research around
+            autonomous agents, diffusion models, and the tooling that makes
+            them reliable enough to ship. When I am not building, I am writing
+            about it.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="sm:col-span-2">
+        <Reveal delay={120} className="sm:col-span-2">
           <h3 className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
-            Tools &amp; Tech
+            Stack
           </h3>
           <ul className="mt-4 flex flex-wrap gap-2">
-            {skills.map((skill) => (
+            {stack.map((s) => (
               <li
-                key={skill}
-                className="rounded-md bg-secondary px-3 py-1 text-sm text-secondary-foreground"
+                key={s}
+                className="rounded-md border border-border bg-secondary px-3 py-1 text-sm text-secondary-foreground"
               >
-                {skill}
+                {s}
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
       </div>
     </section>
   )

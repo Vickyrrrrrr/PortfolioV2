@@ -1,0 +1,76 @@
+---
+title: "Building a 300W Class-D RF Power Amplifier at 13.56MHz"
+date: "2026-06-28"
+description: "Design notes from building a 300-watt Class D RF power amplifier running at 13.56 MHz — the ISM band frequency used for HF plasma, induction heating, and RFID. Covering the topology, switching losses, and impedance matching."
+tags: ["Hardware", "RF", "Power Electronics", "Amplifier"]
+---
+
+13.56 MHz sits in the ISM band — it is the frequency behind HF plasma
+etching, induction heating, NFC, and RFID readers. Most of those
+applications need serious power, and that power has to come from an
+amplifier that can switch cleanly at HF without melting. This is the
+design I built for a 300W Class-D RF power amplifier.
+
+## Why Class D
+
+Linear amplifiers (Class A, AB, B) are simple but waste 50-80% of their
+input power as heat. At 300W output, that means dissipating hundreds of
+watts in the transistors — heatsinks the size of a brick, forced air
+cooling, and miserable efficiency.
+
+Class D flips the problem. The MOSFETs act as switches, not linear
+amplifiers. They are either fully on or fully off, so the theoretical
+dissipation approaches zero. The output is a square wave whose amplitude
+encodes the signal, and a tuned load filters it back to a sine. The catch:
+switching 300W at 13.56 MHz is hard.
+
+## The Topology
+
+I used a **current-fed Class D** topology with an LCC resonant network:
+
+- Two MOSFETs in a push-pull arrangement, driven 180° out of phase.
+- An RF choke feeds DC to the centre tap — the choke presents high
+  impedance at 13.56 MHz, so the transistors see a current source.
+- The LCC tank on the output converts the square wave to a clean sine
+  and matches the 50Ω load.
+
+## Switching Loss is the Enemy
+
+At 13.56 MHz, the switching period is ~74 ns. If your MOSFET takes 10 ns
+to transition, you are spending 27% of each cycle in the linear region —
+and that is where power burns. The design comes down to three things:
+
+1. **Gate drive** — low-side drivers with high peak current (4-6A) to
+   slam the gate capacitance charged and discharged fast. I used
+   dual gate-drive transformers to keep the layout symmetric.
+2. **MOSFET selection** — low gate charge (Qg), low Crss, and a
+   drain-source voltage rating with headroom above the supply rail.
+   SiC parts are ideal but expensive; I went with carefully chosen
+   silicon MOSFETs.
+3. **Dead time** — a small dead band between the two switch transitions
+   prevents shoot-through (both MOSFETs on simultaneously), but too
+   much dead time lets the body diode conduct and you lose efficiency
+   again. It is a knife-edge.
+
+## Impedance Matching
+
+The 50Ω load needs to be transformed down to the impedance the amplifier
+wants to see at the drain — typically a few ohms at these power levels.
+The LCC network (series L, shunt C, series C) does two jobs: it sets the
+resonant frequency to 13.56 MHz, and it steps the impedance. Getting this
+network right is what separates an amplifier that delivers 300W from one
+that oscillates, self-destructs, or tops out at 80W.
+
+I simulated the matching network in MATLAB, then verified it on a VNA
+with a return loss sweep. The final design hit better than -20 dB
+return loss at the target frequency.
+
+## The Build
+
+The full design files — schematics, simulation scripts, and the
+bill of materials — are on
+[GitHub](https://github.com/Vickyrrrrrr/ClassD_RF_PA_300W_13p56MHz).
+
+The project is Python-driven: I wrote the calculations for the matching
+network component values and the load-pull analysis as scripts, so the
+design is reproducible rather than sitting in a datasheet somewhere.

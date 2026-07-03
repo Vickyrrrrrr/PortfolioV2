@@ -1,3 +1,5 @@
+import { Reveal } from "@/components/reveal"
+import { SectionHeading } from "@/components/section-heading"
 import type { SVGProps } from "react"
 
 function XLogo(props: SVGProps<SVGSVGElement>) {
@@ -60,40 +62,42 @@ const socials = [
 
 export function ContactSection() {
   return (
-    <section
-      id="contact"
-      className="border-t border-border/60 py-16 sm:py-24"
-    >
-      <h2 className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
-        Contact
-      </h2>
+    <section id="contact" className="py-16 sm:py-24">
+      <SectionHeading index="05" title="Contact" />
 
-      <h3 className="mt-6 text-balance text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-        Let&apos;s Connect.
-      </h3>
-      <p className="mt-4 max-w-lg text-pretty leading-relaxed text-muted-foreground">
-        I&apos;m open to new opportunities and interesting collaborations on AI
-        systems and agentic workflows. Find me across the web below.
-      </p>
+      <Reveal>
+        <h3 className="mt-8 text-balance font-display text-3xl tracking-tight text-foreground sm:text-4xl">
+          Let&apos;s connect.
+        </h3>
+      </Reveal>
 
-      <ul className="mt-8 flex flex-wrap items-center gap-3">
-        {socials.map((social) => {
-          const Icon = social.icon
-          return (
-            <li key={social.label}>
-              <a
-                href={social.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={social.label}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-border/60 text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
-              >
-                <Icon className="h-[18px] w-[18px]" />
-              </a>
-            </li>
-          )
-        })}
-      </ul>
+      <Reveal delay={80}>
+        <p className="mt-4 max-w-lg text-pretty leading-relaxed text-muted-foreground">
+          Open to opportunities and collaborations on agentic systems, LLMs,
+          and hardware. Find me across the web below.
+        </p>
+      </Reveal>
+
+      <Reveal delay={160}>
+        <ul className="mt-8 flex flex-wrap items-center gap-3">
+          {socials.map((social) => {
+            const Icon = social.icon
+            return (
+              <li key={social.label}>
+                <a
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={social.label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-foreground hover:text-foreground"
+                >
+                  <Icon className="h-[18px] w-[18px]" />
+                </a>
+              </li>
+            )
+          })}
+        </ul>
+      </Reveal>
     </section>
   )
 }
