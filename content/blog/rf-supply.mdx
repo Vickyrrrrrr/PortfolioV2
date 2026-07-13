@@ -65,6 +65,19 @@ I simulated the matching network in MATLAB, then verified it on a VNA
 with a return loss sweep. The final design hit better than -20 dB
 return loss at the target frequency.
 
+## Project Update: Pivoting to High-Speed GaN & Cadence Simulation
+
+As the design progressed, I hit the harsh reality of 13.56 MHz switching. My original plan used basic silicon MOSFETs and a generic IR2181S gate driver, laying out everything directly in KiCad. However, pushing 300W at 13.56 MHz is extremely demanding. The IR2181S simply cannot turn the gates on and off fast enough without massive switching losses, and standard silicon MOSFETs struggle with the extreme parasitic capacitances and slow switching times.
+
+**The New Plan:**
+To achieve true high efficiency and reliability, I made several critical design pivots:
+1. **Upgrading to GaN (Gallium Nitride):** GaN HEMTs offer significantly lower gate charge ($Q_g$) and near-zero reverse recovery charge ($Q_{rr}$), making them perfect for MHz-range switching.
+2. **Dedicated High-Speed Gate Drivers:** The generic driver was replaced with high-speed, high-current RF drivers (like the IXDD614 or UCC27511) to slam the GaN gates open and closed with sub-nanosecond precision.
+3. **Changing the Workflow:** Instead of guessing component values in KiCad, I switched my workflow to use **Cadence Virtuoso and Spectre** for theoretical simulation first. In Cadence, I built the Class-D Half-Bridge topology with our precisely tuned L-Match filter (130nH inductor and 1000pF capacitor) to prove the physics mathematically.
+4. **Physical Layout:** Once the tuning and switching waveforms are perfected in Cadence, I will redraw the exact schematic in KiCad to route the thick copper traces and generate the Gerber files for manufacturing.
+
+This professional two-step process—simulation in Cadence followed by physical layout in KiCad—ensures the amplifier will run efficiently at full power.
+
 ## The Build
 
 The full design files — schematics, simulation scripts, and the
